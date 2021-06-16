@@ -1,0 +1,30 @@
+
+---
+# adds title to header and page count to footer
+# documentation: https://pandoc.org/MANUAL.html#variables-for-latex
+
+geometry:
+- headsep=.5cm
+- top=3cm
+- bottom=3cm
+- left=2cm
+- right=2cm
+# - landscape
+
+fontfamily: noto
+fontfamilyoptions:
+- sfdefault
+
+header-includes:
+- \usepackage{etoolbox}
+- \patchcmd{\quote}{\rightmargin}{\leftmargin 2em \rightmargin 0}{}{}
+- \usepackage{setspace}
+- \setstretch{1.1}
+- \usepackage{fancyhdr}
+- \usepackage{lastpage}
+- \pagestyle{fancy}
+- \fancyhf{}
+- \fancyhead[L]{\leftmark}
+- \fancyhead[R]{}
+- \fancyfoot[R]{page \thepage \ of \pageref{LastPage}}
+...
