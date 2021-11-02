@@ -1,4 +1,0 @@
-templates/*
-!templates/_plain.yaml
-!templates/_code.yaml
-temporary/
