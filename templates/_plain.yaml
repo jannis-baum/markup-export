@@ -1,7 +1,9 @@
 
 ---
-# adds title to header and page count to footer
-# documentation: https://pandoc.org/MANUAL.html#variables-for-latex
+# - adds title to header and page count to footer
+# - colors urls
+# - places images at defined location in text flow
+# pandoc documentation: https://pandoc.org/MANUAL.html#variables-for-latex
 
 geometry:
 - headsep=.5cm
@@ -18,6 +20,8 @@ fontfamilyoptions:
 header-includes:
 - \usepackage{etoolbox}
 - \patchcmd{\quote}{\rightmargin}{\leftmargin 2em \rightmargin 0}{}{}
+- \usepackage{xcolor}
+- \definecolor{linkblue}{HTML}{2D7196}
 - \usepackage{setspace}
 - \setstretch{1.1}
 - \usepackage{fancyhdr}
@@ -27,4 +31,10 @@ header-includes:
 - \fancyhead[L]{\leftmark}
 - \fancyhead[R]{}
 - \fancyfoot[R]{page \thepage \ of \pageref{LastPage}}
+- \usepackage{float}
+- \makeatletter
+- \def\fps@figure{H} 
+- \makeatother
+
+urlcolor: linkblue
 ...
