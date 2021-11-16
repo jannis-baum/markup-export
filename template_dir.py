@@ -1,4 +1,7 @@
 import os
+import re
+
+from mde_errors import *
 
 class TemplateDir:
     template_path = 'templates'
@@ -39,5 +42,14 @@ class TemplateDir:
         return '\n'.join(self.__string_lines())
     
     def find(self, pattern):
-        pass
+        p = pattern.split('/', 1)
+        if len(p) > 1:
+            for entry in self.entries:
+                if type(entry) is TemplateDir and re.match(p[0], entry.name):
+                    return entry.find(p[1])
+        else:
+            for entry in self.entries:
+                if type(entry) is str and re.match(p[0], entry):
+                    return self.path + '/' + entry
+        raise NoMatchFound
         
