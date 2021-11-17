@@ -1,10 +1,11 @@
 import os
 import re
 
-from mde_errors import *
+from mue_errors import *
 
 class TemplateDir:
-    template_path = 'templates'
+    template_dir = 'templates'
+    template_recent = '_recent.yaml'
 
     def __init__(self, name, parent_path, depth):
         self.name = name
@@ -50,6 +51,6 @@ class TemplateDir:
         else:
             for entry in self.entries:
                 if type(entry) is str and re.match(p[0], entry):
-                    return self.path + '/' + entry
+                    return os.path.join(self.path, entry)
         raise NoMatchFound
         
