@@ -19,7 +19,7 @@ class TemplateDir:
             if os.path.isdir(os.path.join(self.path, entry)):
                 self.entries.append(TemplateDir(entry, self.path, self.depth + 1))
             elif entry[-5:] == '.yaml':
-                self.entries.append(entry[:-5])
+                self.entries.append(entry)
     
     def __string_lines(self):
         ret = []
@@ -35,7 +35,7 @@ class TemplateDir:
                 ]
                 ret += inner_block
             else:
-                line += entry
+                line += entry[:-5]
                 ret.append(line)
         return ret
     
