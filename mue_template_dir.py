@@ -7,11 +7,11 @@ class MUETemplateDir:
     template_dir = 'templates'
     template_recent = '_recent.yaml'
 
-    def __init__(self, name, parent_path, depth):
-        self.name = name
+    def __init__(self, parent_path, name=None, depth=0):
+        self.name = name if name else MUETemplateDir.template_dir
         self.depth = depth
         self.entries = []
-        self.path = os.path.join(parent_path, name)
+        self.path = os.path.join(parent_path, self.name)
         if not os.path.isdir(self.path):
             os.mkdir(self.path)
         self.__build()
@@ -19,7 +19,7 @@ class MUETemplateDir:
     def __build(self):
         for entry in sorted(os.listdir(self.path)):
             if os.path.isdir(os.path.join(self.path, entry)):
-                self.entries.append(MUETemplateDir(entry, self.path, self.depth + 1))
+                self.entries.append(MUETemplateDir(self.path, entry, self.depth + 1))
             elif entry[-5:] == '.yaml':
                 self.entries.append(entry)
     
