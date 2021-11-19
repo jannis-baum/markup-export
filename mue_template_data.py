@@ -35,7 +35,7 @@ class MUETemplateData:
         self.t_dir = MUETemplateDir(directory, MUETemplateData.template_dirname)
     
     def __get_raw(self, identifiable):
-        path = self.t_dir.find(identifiable)
+        path = self.path_for(identifiable)
         with open(path, 'r') as template_file:
             return path, yaml.safe_load(template_file)
 
@@ -59,10 +59,13 @@ class MUETemplateData:
             return MUETemplateData.__merge_lists(merge + [data])
         return data
     
-    def get(self, identifiable):
+    def path_for(self, identifiable):
+        return self.t_dir.find(identifiable)
+
+    def data_from(self, identifiable):
         path, raw = self.__get_raw(identifiable)
         return self.__process_includes(raw, included=[path])
 
-    def templates_list_string(self):
+    def list_string(self):
         return MUETemplateData.template_dirname + '\n' + self.t_dir.string()
 
