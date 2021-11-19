@@ -4,6 +4,8 @@ from mue_template_dir import MUETemplateDir
 
 class MUETemplateData:
     __key_include = 'mue-include '
+    template_dirname = 'templates'
+    template_recent = '_recent.yaml'
 
     @staticmethod
     def __merge_lists(lists):
@@ -30,7 +32,7 @@ class MUETemplateData:
         return d
 
     def __init__(self, directory):
-        self.t_dir = MUETemplateDir(directory)
+        self.t_dir = MUETemplateDir(directory, MUETemplateData.template_dirname)
     
     def __get_raw(self, identifiable):
         path = self.t_dir.find(identifiable)
@@ -62,5 +64,5 @@ class MUETemplateData:
         return self.__process_includes(raw, included=[path])
 
     def templates_list_string(self):
-        return MUETemplateDir.template_dir + '\n' + self.t_dir.string()
+        return MUETemplateData.template_dirname + '\n' + self.t_dir.string()
 

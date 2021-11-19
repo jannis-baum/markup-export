@@ -4,11 +4,8 @@ import re
 from mue_errors import *
 
 class MUETemplateDir:
-    template_dir = 'templates'
-    template_recent = '_recent.yaml'
-
-    def __init__(self, parent_path, name=None, depth=0):
-        self.name = name if name else MUETemplateDir.template_dir
+    def __init__(self, parent_path, name, depth=0):
+        self.name = name
         self.depth = depth
         self.entries = []
         self.path = os.path.join(parent_path, self.name)
