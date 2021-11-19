@@ -7,7 +7,7 @@ class MUETemplateDir:
     def __init__(self, parent_path, name, depth=0):
         self.name = name
         self.depth = depth
-        self.entries = []
+        self.entries = list()
         self.path = os.path.join(parent_path, self.name)
         if not os.path.isdir(self.path):
             os.mkdir(self.path)
@@ -21,7 +21,7 @@ class MUETemplateDir:
                 self.entries.append(entry)
     
     def __string_lines(self):
-        ret = []
+        ret = list()
         for i, entry in enumerate(self.entries):
             is_last = (i == len(self.entries) - 1)
             line = ' ' * self.depth * 4
