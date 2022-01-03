@@ -3,7 +3,8 @@ import yaml
 from mue_template_dir import MUETemplateDir
 
 class MUETemplateData:
-    __key_include = 'mue-include'
+    __key_include = 'include'
+    __key_config = 'mue-config'
     template_dirname = 'templates'
     template_recent = '_recent.yaml'
 
@@ -36,16 +37,18 @@ class MUETemplateData:
         return self.t_dir.find(identifiable)
 
     def data_from(self, identifiable):
-        included = list()
         data = MUETemplateData.__get_raw(self.path_for(identifiable))
-        while MUETemplateData.__key_include in data:
-            if len(data[MUETemplateData.__key_include]):
-                inc_path = self.path_for(data[MUETemplateData.__key_include].pop(0))
+        if MUETemplateData.__key_config not in data:
+            return data
+
+        included = list()
+        while MUETemplateData.__key_include in data[MUETemplateData.__key_config]:
+            if len(data[MUETemplateData.__key_config][MUETemplateData.__key_include]):
+                inc_path = self.path_for(data[MUETemplateData.__key_config][MUETemplateData.__key_include].pop(0))
                 if inc_path not in included:
                     included.append(inc_path)
                     data = MUETemplateData.__include_data(MUETemplateData.__get_raw(inc_path), data)
             else:
-                data.pop(MUETemplateData.__key_include)
-        print(data)
+                data[MUETemplateData.__key_config].pop(MUETemplateData.__key_include)
         return data
 
