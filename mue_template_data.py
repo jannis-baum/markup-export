@@ -44,7 +44,7 @@ class MUETemplateData:
         included = list()
         while MUETemplateData.__key_include in data[MUETemplateData.__key_config]:
             if len(data[MUETemplateData.__key_config][MUETemplateData.__key_include]):
-                inc_path = self.path_for(data[MUETemplateData.__key_config][MUETemplateData.__key_include].pop(0))
+                inc_path = self.path_for(data[MUETemplateData.__key_config][MUETemplateData.__key_include].pop())
                 if inc_path not in included:
                     included.append(inc_path)
                     data = MUETemplateData.__include_data(MUETemplateData.__get_raw(inc_path), data)
