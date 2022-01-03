@@ -36,10 +36,10 @@ class MUETemplateData:
     def path_for(self, identifiable):
         return self.t_dir.find(identifiable)
 
-    def data_from(self, identifiable):
+    def conf_and_template_from(self, identifiable):
         data = MUETemplateData.__get_raw(self.path_for(identifiable))
         if MUETemplateData.__key_config not in data:
-            return data
+            return dict(), data
 
         included = list()
         while MUETemplateData.__key_include in data[MUETemplateData.__key_config]:
@@ -50,5 +50,5 @@ class MUETemplateData:
                     data = MUETemplateData.__include_data(MUETemplateData.__get_raw(inc_path), data)
             else:
                 data[MUETemplateData.__key_config].pop(MUETemplateData.__key_include)
-        return data
+        return data.pop(MUETemplateData.__key_config), data
 

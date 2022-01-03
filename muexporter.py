@@ -25,9 +25,9 @@ class MUExporter:
 
         # if edit: edit(recent_path)
 
-        template_data = self.templates.data_from(MUETemplateData.template_recent)
+        config, template_data = self.templates.conf_and_template_from(MUETemplateData.template_recent)
 
-        # use and remove mue-config data
+        # use config data
 
         temporary_path = os.path.join(MUExporter.temporary_dir, MUExporter.temporary_template)
         with open(temporary_path, 'w') as template_file:
