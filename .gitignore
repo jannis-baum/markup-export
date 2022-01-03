@@ -1,0 +1,5 @@
+legacy
+__pycache__
+templates/
+.temporary/
+testing.ipynb
