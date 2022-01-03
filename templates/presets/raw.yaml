@@ -1,0 +1,26 @@
+# RAW.YAML
+# - most basic preset
+# pandoc documentation: https://pandoc.org/MANUAL.html#variables-for-latex
+
+geometry:
+- headsep=.5cm
+- top=3cm
+- bottom=3cm
+- left=2cm
+- right=2cm
+# - landscape
+
+papersize: a4
+
+fontfamily: noto
+fontfamilyoptions:
+- sfdefault
+
+header-includes:
+- \usepackage{graphicx}
+- \usepackage{calc}
+- \usepackage{fancyhdr}
+- \usepackage{lastpage}
+- \pagestyle{fancy}
+- \fancyhf{}
+

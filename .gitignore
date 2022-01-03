@@ -1,5 +1,9 @@
-legacy
 __pycache__
-templates/
 .temporary/
+
+templates/*
+!templates/presets
+!templates/presets/*
+
 testing.ipynb
+legacy
