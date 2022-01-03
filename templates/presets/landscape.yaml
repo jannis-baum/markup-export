@@ -1,0 +1,11 @@
+# LANDSCAPE.YAML
+# - landscate `raw`
+# pandoc documentation: https://pandoc.org/MANUAL.html#variables-for-latex
+
+mue-config:
+  include:
+    - presets/raw
+  
+geometry:
+  - landscape
+

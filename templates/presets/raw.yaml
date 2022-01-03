@@ -1,5 +1,5 @@
 # RAW.YAML
-# - most basic preset
+# - basic preset
 # pandoc documentation: https://pandoc.org/MANUAL.html#variables-for-latex
 
 mue-config:
@@ -12,7 +12,6 @@ geometry:
 - bottom=3cm
 - left=2cm
 - right=2cm
-# - landscape
 
 papersize: a4
 
