@@ -13,3 +13,4 @@
   - [ ] output name
   - [ ] enable full interaction mode (be asked everything cl options can do)
 - [ ] dot support
+
