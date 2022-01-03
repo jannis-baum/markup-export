@@ -2,6 +2,10 @@
 # - most basic preset
 # pandoc documentation: https://pandoc.org/MANUAL.html#variables-for-latex
 
+mue-config:
+  pandoc-flags:
+    - --pdf-engine=xelatex
+
 geometry:
 - headsep=.5cm
 - top=3cm
@@ -15,12 +19,4 @@ papersize: a4
 fontfamily: noto
 fontfamilyoptions:
 - sfdefault
-
-header-includes:
-- \usepackage{graphicx}
-- \usepackage{calc}
-- \usepackage{fancyhdr}
-- \usepackage{lastpage}
-- \pagestyle{fancy}
-- \fancyhf{}
 

@@ -5,6 +5,9 @@
 # pandoc documentation: https://pandoc.org/MANUAL.html#variables-for-latex
 
 mue-config:
+  pandoc-flags:
+    # align (float) equations left rather than center
+    - --metadata=classoption:fleqn
   include:
     - presets/raw
 
