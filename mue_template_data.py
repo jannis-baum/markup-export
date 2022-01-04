@@ -31,7 +31,7 @@ class MUETemplateData:
         return d
 
     def list_string(self):
-        return MUETemplateData.template_dirname + '\n' + self.t_dir.string()
+        return self.t_dir.string()
 
     def path_for(self, identifiable):
         return self.t_dir.find(identifiable)
