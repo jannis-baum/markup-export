@@ -41,6 +41,9 @@ class MUEInterface:
             self.parser.print_usage()
             print(e.message)
             sys.exit(1)
+        except KeyboardInterrupt:
+            print()
+            sys.exit(0)
 
     def __run(self):
         print(self.options)
