@@ -14,11 +14,13 @@ class MUETemplateDir:
         self.__build()
 
     def __build(self):
+        templates = list()
         for entry in sorted(os.listdir(self.path)):
             if os.path.isdir(os.path.join(self.path, entry)):
                 self.entries.append(MUETemplateDir(self.path, entry, self.depth + 1))
             elif entry[-5:] == '.yaml':
-                self.entries.append(entry)
+                templates.append(entry)
+        self.entries += templates
     
     def __string_lines(self):
         ret = list()
