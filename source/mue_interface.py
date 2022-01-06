@@ -17,8 +17,8 @@ class MUEInterface:
         self.parser.add_argument('-d', '--debug', dest='debug', action='store_true', help='enable debug mode to receive pandoc stdout and stderr and prevent clearing of temporary files')
 
         self.exporter = MUExporter()
-        self.options = self.__get_options()
-        self.__run()
+        options = self.__get_options()
+        self.exporter.export(options)
 
     def __get_options(self):
         options = self.parser.parse_args()
@@ -44,7 +44,6 @@ class MUEInterface:
         except KeyboardInterrupt:
             print()
             sys.exit(0)
-
-    def __run(self):
-        print(self.options)
+        
+        return options
 

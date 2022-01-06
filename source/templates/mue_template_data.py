@@ -39,6 +39,8 @@ class MUETemplateData:
 
     def conf_and_template_from(self, identifiable):
         data = MUETemplateData.__get_raw(self.path_for(identifiable))
+        if not data:
+            return dict(), dict()
         if MUETemplateData.__key_config not in data:
             return dict(), data
 
