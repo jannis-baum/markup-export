@@ -8,7 +8,7 @@ from mue_errors import *
 
 class MUExporter:
     mue_dir = os.path.dirname(os.path.realpath(__file__))
-    temporary_dir = os.path.join(mue_dir, '.temporary')
+    temporary_dir = os.path.join(mue_dir, MUETemplateData.template_temporary)
     temporary_template = 'template.yaml'
 
     def __init__(self):

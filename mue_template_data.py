@@ -7,6 +7,7 @@ class MUETemplateData:
     __key_config = 'mue-config'
     template_dirname = 'templates'
     template_recent = '_recent.yaml'
+    template_temporary = 'template.yaml'
 
     def __init__(self, directory):
         self.t_dir = MUETemplateDir(directory, MUETemplateData.template_dirname)
