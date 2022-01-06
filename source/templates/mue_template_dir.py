@@ -1,7 +1,7 @@
 import os
 import re
 
-from mue_errors import *
+from source.mue_errors import *
 
 class MUETemplateDir:
     def __init__(self, parent_path, name, depth=0):

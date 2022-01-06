@@ -1,6 +1,6 @@
 import yaml
 
-from mue_template_dir import MUETemplateDir
+from source.templates.mue_template_dir import MUETemplateDir
 
 class MUETemplateData:
     __key_include = 'include'

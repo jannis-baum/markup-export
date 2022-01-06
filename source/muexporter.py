@@ -3,17 +3,17 @@ import os
 import subprocess
 import yaml
 
-from mue_template_data import MUETemplateData
-from mue_errors import *
+from source.templates.mue_template_data import MUETemplateData
+from source.mue_errors import *
+from definitions import ROOT_DIR
 
 class MUExporter:
-    mue_dir = os.path.dirname(os.path.realpath(__file__))
-    temporary_dir = os.path.join(mue_dir, MUETemplateData.template_temporary)
+    temporary_dir = os.path.join(ROOT_DIR, MUETemplateData.template_temporary)
     temporary_template = 'template.yaml'
 
     def __init__(self):
         self.debug = False
-        self.templates = MUETemplateData(MUExporter.mue_dir)
+        self.templates = MUETemplateData(ROOT_DIR)
 
     def templates_list_string(self):
         return self.templates.list_string()

@@ -1,8 +1,8 @@
 import argparse, re, sys
 
-from muexporter import MUExporter
-from mue_template_data import MUETemplateData
-from mue_errors import *
+from source.muexporter import MUExporter
+from source.templates.mue_template_data import MUETemplateData
+from source.mue_errors import *
 
 class MUEInterface:
     def __init__(self):
