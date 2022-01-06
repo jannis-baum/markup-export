@@ -22,7 +22,8 @@ class MUExporter:
         else:
             with open(recent_path, 'w'): pass
 
-        # if edit: edit(recent_path)
+        # if edit not False: edit(recent_path)
+        # if edit: save recent_path as edit
 
         config, template_data = self.templates.conf_and_template_from(MUETemplateData.template_recent)
         temporary_path = os.path.join(MUExporter.temporary_dir, MUETemplateData.template_temporary)
