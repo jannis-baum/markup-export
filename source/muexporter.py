@@ -6,6 +6,7 @@ from source.mue_errors import *
 from definitions import ROOT_DIR, TEMPLATE_DIR, TEMPLATE_RECENT, CMD_EDITOR, CMD_QL
 
 class MUExporter:
+    __key_padoc_flags = 'pandoc-flags'
     temporary_dir = os.path.join(ROOT_DIR, '.temporary')
 
     def __init__(self):
@@ -20,7 +21,8 @@ class MUExporter:
         recent_path = os.path.join(TEMPLATE_DIR, TEMPLATE_RECENT)
         if identifiable:
             template_path = self.templates.path_for(identifiable)
-            shutil.copy(template_path, recent_path)
+            if not os.path.samefile(template_path, recent_path):
+                shutil.copy(template_path, recent_path)
         else:
             with open(recent_path, 'w'): pass
 
@@ -43,5 +45,6 @@ class MUExporter:
         print(options)
         self.sp_output = sys.stdout if options.debug else subprocess.DEVNULL
         config = self.__ready_template_and_get_config(options.template, options.edit)
+        #config[MUExporter.__key_padoc_flags]
         print(config)
 
