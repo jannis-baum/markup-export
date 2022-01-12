@@ -1,16 +1,15 @@
 import yaml
 
 from source.templates.mue_template_dir import MUETemplateDir
+from definitions import TEMPLATE_DIR
 
 class MUETemplateData:
     __key_include = 'include'
     __key_config = 'mue-config'
-    template_dirname = 'templates'
-    template_recent = '_recent.yaml'
     template_temporary = 'template.yaml'
 
     def __init__(self, directory):
-        self.t_dir = MUETemplateDir(directory, MUETemplateData.template_dirname)
+        self.t_dir = MUETemplateDir(directory, TEMPLATE_DIR)
     
     @staticmethod
     def __get_raw(path):

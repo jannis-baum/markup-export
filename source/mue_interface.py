@@ -1,8 +1,8 @@
 import argparse, re, sys, os
 
 from source.muexporter import MUExporter
-from source.templates.mue_template_data import MUETemplateData
 from source.mue_errors import *
+from definitions import TEMPLATE_RECENT
 
 class MUEInterface:
     def __init__(self):
@@ -25,10 +25,10 @@ class MUEInterface:
         recent = options.recent; del options.recent
         interactive = options.interactive; del options.interactive
         try:
-            if not os.path.exists(options.out): raise FileNotFound
+            if not os.path.exists(options.file): raise FileNotFound
             if recent:
                 if options.template or interactive: raise ExclusiveRecent
-                options.template = MUETemplateData.template_recent
+                options.template = TEMPLATE_RECENT
                 return options
             if interactive:
                 print('template\n' + self.exporter.templates_list_string())
