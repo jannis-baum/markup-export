@@ -24,6 +24,9 @@ class MUEInterface:
             self.exporter.export(options)
         except MUEError as e:
             self.__terminal_error(e)
+        except KeyboardInterrupt:
+            print()
+            sys.exit(0)
 
     def __get_options(self):
         options = self.parser.parse_args()
