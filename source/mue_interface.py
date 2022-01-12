@@ -12,7 +12,6 @@ class MUEInterface:
         self.parser.add_argument('-t', '--template', dest='template', metavar='template', type=str, help='template identifier')
         # edit becomes None if -e without name, False if not given
         self.parser.add_argument('-e', '--edit', dest='edit', nargs='?', metavar='save_as', default=False, type=str, help='edit template before using, optionally save')
-        self.parser.add_argument('-r', '--recent', dest='recent', action='store_true', help='use most recent template again')
         self.parser.add_argument('-i', '--interactive', dest='interactive', action='store_true', help='be asked about all options interactively')
         self.parser.add_argument('-d', '--debug', dest='debug', action='store_true', help='enable debug mode to receive pandoc stdout and stderr and prevent clearing of temporary files')
 
@@ -22,14 +21,9 @@ class MUEInterface:
 
     def __get_options(self):
         options = self.parser.parse_args()
-        recent = options.recent; del options.recent
         interactive = options.interactive; del options.interactive
         try:
             if not os.path.exists(options.file): raise FileNotFound
-            if recent:
-                if options.template or interactive: raise ExclusiveRecent
-                options.template = TEMPLATE_RECENT
-                return options
             if interactive:
                 print('template\n' + self.exporter.templates_list_string())
                 match = re.match(r'^(\S*)(( new)|( as new (\S*))?)?$', input('> '))
@@ -37,6 +31,9 @@ class MUEInterface:
                 options.template = match.group(1)
                 if match.group(2): options.edit = None
                 if match.group(5): options.edit = match.group(5) + '.yaml'
+                return options
+            if not options.template:
+                options.template = TEMPLATE_RECENT
                 return options
         except MUEError as e:
             self.parser.print_usage()
