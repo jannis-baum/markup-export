@@ -1,4 +1,4 @@
-import argparse, re, sys
+import argparse, re, sys, os
 
 from source.muexporter import MUExporter
 from source.templates.mue_template_data import MUETemplateData
@@ -25,6 +25,7 @@ class MUEInterface:
         recent = options.recent; del options.recent
         interactive = options.interactive; del options.interactive
         try:
+            if not os.path.exists(options.out): raise FileNotFound
             if recent:
                 if options.template or interactive: raise ExclusiveRecent
                 options.template = MUETemplateData.template_recent
