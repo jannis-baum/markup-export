@@ -3,13 +3,13 @@ import subprocess, yaml
 
 from source.templates.mue_template_data import MUETemplateData
 from source.mue_errors import *
-from definitions import ROOT_DIR, TEMPLATE_DIR, TEMPLATE_RECENT
+from definitions import ROOT_DIR, TEMPLATE_DIR, TEMPLATE_RECENT, CMD_EDITOR, CMD_QL
 
 class MUExporter:
     temporary_dir = os.path.join(ROOT_DIR, '.temporary')
 
     def __init__(self):
-        self.debug = False
+        self.sp_output = subprocess.DEVNULL
         self.templates = MUETemplateData(ROOT_DIR)
 
     def __ready_template_and_get_config(self, identifiable, edit):
@@ -37,7 +37,7 @@ class MUExporter:
 
     def export(self, options):
         print(options)
-        sp_output = sys.stdout if options.debug else subprocess.DEVNULL
+        self.sp_output = sys.stdout if options.debug else subprocess.DEVNULL
         config = self.__ready_template_and_get_config(options.template, options.edit)
         print(config)
 
