@@ -11,6 +11,10 @@ class MUExporter:
     def __init__(self):
         self.sp_output = subprocess.DEVNULL
         self.templates = MUETemplateData(ROOT_DIR)
+    
+    def __run_sp(self, cmds):
+        retc = subprocess.call(cmds, stdout=self.sp_output, stderr=self.sp_output)
+        if retc != 0: raise SubprocessFailed
 
     def __ready_template_and_get_config(self, identifiable, edit):
         recent_path = os.path.join(TEMPLATE_DIR, TEMPLATE_RECENT)

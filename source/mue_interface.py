@@ -6,6 +6,8 @@ from definitions import TEMPLATE_RECENT, QL_DEF
 
 class MUEInterface:
     def __init__(self):
+        self.exporter = MUExporter()
+
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('file')
         self.parser.add_argument('-o', '--out', dest='out', metavar='filename', type=str, help='output filename')
@@ -16,9 +18,12 @@ class MUEInterface:
         self.parser.add_argument('-d', '--debug', dest='debug', action='store_true', help='enable debug mode to receive pandoc stdout and stderr and prevent clearing of temporary files')
         self.parser.add_argument('-q', '--quicklook', dest='quicklook', action='store_true', help='use non-default quicklook behavior')
 
-        self.exporter = MUExporter()
         options = self.__get_options()
-        self.exporter.export(options)
+
+        try:
+            self.exporter.export(options)
+        except MUEError as e:
+            self.__terminal_error(e)
 
     def __get_options(self):
         options = self.parser.parse_args()
@@ -38,12 +43,15 @@ class MUEInterface:
                 options.template = TEMPLATE_RECENT
                 return options
         except MUEError as e:
-            self.parser.print_usage()
-            print(e.message)
-            sys.exit(1)
+            self.__terminal_error(e)
         except KeyboardInterrupt:
             print()
             sys.exit(0)
         
         return options
+
+    def __terminal_error(self, e):
+        print(e.message, end='\n\n')
+        self.parser.print_usage()
+        sys.exit(1)
 
