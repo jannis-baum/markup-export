@@ -1,8 +1,5 @@
-from re import TEMPLATE
-import shutil
-import os
-import subprocess
-import yaml
+import shutil, os, sys
+import subprocess, yaml
 
 from source.templates.mue_template_data import MUETemplateData
 from source.mue_errors import *
@@ -40,6 +37,7 @@ class MUExporter:
 
     def export(self, options):
         print(options)
+        sp_output = sys.stdout if options.debug else subprocess.DEVNULL
         config = self.__ready_template_and_get_config(options.template, options.edit)
         print(config)
 
