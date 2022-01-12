@@ -2,7 +2,7 @@ import argparse, re, sys, os
 
 from source.muexporter import MUExporter
 from source.mue_errors import *
-from definitions import TEMPLATE_RECENT
+from definitions import TEMPLATE_RECENT, QL_DEF
 
 class MUEInterface:
     def __init__(self):
@@ -14,6 +14,7 @@ class MUEInterface:
         self.parser.add_argument('-e', '--edit', dest='edit', nargs='?', metavar='save_as', default=False, type=str, help='edit template before using, optionally save')
         self.parser.add_argument('-i', '--interactive', dest='interactive', action='store_true', help='be asked about all options interactively')
         self.parser.add_argument('-d', '--debug', dest='debug', action='store_true', help='enable debug mode to receive pandoc stdout and stderr and prevent clearing of temporary files')
+        self.parser.add_argument('-q', '--quicklook', dest='quicklook', action='store_true', help='use non-default quicklook behavior')
 
         self.exporter = MUExporter()
         options = self.__get_options()
@@ -21,6 +22,7 @@ class MUEInterface:
 
     def __get_options(self):
         options = self.parser.parse_args()
+        options.quicklook = not QL_DEF if options.quicklook else QL_DEF
         interactive = options.interactive; del options.interactive
         try:
             if not os.path.exists(options.file): raise FileNotFound
