@@ -14,8 +14,8 @@ class MUExporter:
         self.sp_output = subprocess.DEVNULL
         self.templates = MUETemplateData(ROOT_DIR)
     
-    def __run_sp(self, cmds):
-        retc = subprocess.call(cmds, stdout=self.sp_output, stderr=self.sp_output)
+    def __run_sp(self, cmds, shell=False):
+        retc = subprocess.call(cmds, stdout=self.sp_output, stderr=self.sp_output, shell=shell)
         if retc != 0: raise SubprocessFailed
 
     def __ready_template_and_get_config(self, identifiable, edit):
@@ -53,4 +53,7 @@ class MUExporter:
         print(f'exporting {file_out} ...')
         self.__run_sp(pandoc_args + [options.file])
         print('done')
+
+        if options.quicklook:
+            self.__run_sp(CMD_QL.format(file_out), shell=True)
 
