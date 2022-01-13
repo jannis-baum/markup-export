@@ -8,6 +8,7 @@ from definitions import ROOT_DIR, TEMPLATE_DIR, TEMPLATE_RECENT, CMD_EDITOR, CMD
 class MUExporter:
     __key_padoc_flags = 'pandoc-flags'
     temporary_dir = os.path.join(ROOT_DIR, '.temporary')
+    temporary_templ_path = os.path.join(temporary_dir, MUETemplateData.template_temporary)
 
     def __init__(self):
         self.sp_output = subprocess.DEVNULL
@@ -30,8 +31,7 @@ class MUExporter:
         # if edit: save recent_path as edit
 
         config, template_data = self.templates.conf_and_template_from(TEMPLATE_RECENT)
-        temporary_path = os.path.join(MUExporter.temporary_dir, MUETemplateData.template_temporary)
-        with open(temporary_path, 'w') as template_file:
+        with open(MUExporter.temporary_templ_path, 'w') as template_file:
             template_file.write('---\n')
             yaml.dump(template_data, template_file)
             template_file.write('...')
@@ -45,6 +45,11 @@ class MUExporter:
         print(options)
         self.sp_output = sys.stdout if options.debug else subprocess.DEVNULL
         config = self.__ready_template_and_get_config(options.template, options.edit)
-        #config[MUExporter.__key_padoc_flags]
-        print(config)
+        pandoc_args = [
+            'pandoc', '-s', '-o',
+            options.out or '.'.join(options.file.split('.')[:-1]) + '.pdf',
+            MUExporter.temporary_templ_path]
+        if MUExporter.__key_padoc_flags in config:
+            pandoc_args[1:1] = config[MUExporter.__key_padoc_flags]
+        self.__run_sp(pandoc_args + [options.file])
 
