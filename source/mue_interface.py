@@ -32,6 +32,8 @@ class MUEInterface:
     def __get_options(self):
         options = self.parser.parse_args()
         options.quicklook = not QL_DEF if options.quicklook else QL_DEF
+        if options.edit: options.edit += '.yaml'
+
         recent = options.recent; del options.recent
         interactive = options.interactive; del options.interactive
         try:

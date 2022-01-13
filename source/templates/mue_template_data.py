@@ -36,8 +36,8 @@ class MUETemplateData:
     def path_for(self, identifiable):
         return self.t_dir.find(identifiable)
 
-    def conf_and_template_from(self, identifiable):
-        data = MUETemplateData.__get_raw(self.path_for(identifiable))
+    def conf_and_template_from(self, full_path):
+        data = MUETemplateData.__get_raw(full_path)
         if not data:
             return dict(), dict()
         if MUETemplateData.__key_config not in data:

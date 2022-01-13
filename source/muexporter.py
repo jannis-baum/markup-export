@@ -18,19 +18,27 @@ class MUExporter:
         retc = subprocess.call(cmds, stdout=self.sp_output, stderr=self.sp_output, shell=shell)
         if retc != 0: raise SubprocessFailed
 
+    def __safe_cp(self, src, dest):
+        if not os.path.exists(dest) or not os.path.samefile(src, dest):
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            shutil.copy(src, dest)
+
     def __ready_template_and_get_config(self, identifiable, edit):
         recent_path = os.path.join(TEMPLATE_DIR, TEMPLATE_RECENT)
         if identifiable:
             template_path = self.templates.path_for(identifiable)
-            if not os.path.samefile(template_path, recent_path):
-                shutil.copy(template_path, recent_path)
+            self.__safe_cp(template_path, recent_path)
         else:
+            os.makedirs(recent_path, exist_ok=True)
             with open(recent_path, 'w'): pass
 
-        # if edit not False: edit(recent_path)
-        # if edit: save recent_path as edit
+        if edit is not False:
+            self.__run_sp(CMD_EDITOR.format(recent_path), shell=True)
+            if edit:
+                save_path = os.path.join(TEMPLATE_DIR, edit)
+                self.__safe_cp(recent_path, save_path)
 
-        config, template_data = self.templates.conf_and_template_from(TEMPLATE_RECENT)
+        config, template_data = self.templates.conf_and_template_from(recent_path)
         with open(MUExporter.temporary_templ_path, 'w') as template_file:
             template_file.write('---\n')
             yaml.dump(template_data, template_file)
