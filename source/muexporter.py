@@ -43,13 +43,14 @@ class MUExporter:
 
     def export(self, options):
         print(options)
+        file_out = options.out or '.'.join(options.file.split('.')[:-1]) + '.pdf'
         self.sp_output = sys.stdout if options.debug else subprocess.DEVNULL
+
         config = self.__ready_template_and_get_config(options.template, options.edit)
-        pandoc_args = [
-            'pandoc', '-s', '-o',
-            options.out or '.'.join(options.file.split('.')[:-1]) + '.pdf',
-            MUExporter.temporary_templ_path]
-        if MUExporter.__key_padoc_flags in config:
-            pandoc_args[1:1] = config[MUExporter.__key_padoc_flags]
+        extra_flags = config[MUExporter.__key_padoc_flags] if MUExporter.__key_padoc_flags in config else []
+
+        pandoc_args = ['pandoc'] + extra_flags + ['-s', '-o', file_out, MUExporter.temporary_templ_path]
+        print(f'exporting {file_out} ...')
         self.__run_sp(pandoc_args + [options.file])
+        print('done')
 
