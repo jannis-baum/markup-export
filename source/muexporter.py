@@ -42,7 +42,6 @@ class MUExporter:
         return self.templates.list_string()
 
     def export(self, options):
-        print(options)
         file_out = options.out or '.'.join(options.file.split('.')[:-1]) + '.pdf'
         self.sp_output = sys.stdout if options.debug else subprocess.DEVNULL
 
