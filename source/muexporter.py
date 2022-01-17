@@ -33,7 +33,7 @@ class MUExporter:
             with open(recent_path, 'w'): pass
 
         if edit is not False:
-            self.__run_sp(CMD_EDITOR.format(recent_path), shell=True)
+            subprocess.call(CMD_EDITOR.format(recent_path), shell=True)
             if edit:
                 save_path = os.path.join(TEMPLATE_DIR, edit)
                 self.__safe_cp(recent_path, save_path)
