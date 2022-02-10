@@ -29,7 +29,7 @@ class MUExporter:
             template_path = self.templates.path_for(identifiable)
             self.__safe_cp(template_path, recent_path)
         else:
-            os.makedirs(recent_path, exist_ok=True)
+            os.makedirs(os.path.dirname(recent_path), exist_ok=True)
             with open(recent_path, 'w'): pass
 
         if edit is not False:
