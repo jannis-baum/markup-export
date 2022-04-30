@@ -1,6 +1,6 @@
 import yaml
 
-from source.templates.mue_template_dir import MUETemplateDir
+from script.templates.mue_template_dir import MUETemplateDir
 from definitions import TEMPLATE_DIR
 
 class MUETemplateData:

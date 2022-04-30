@@ -1,7 +1,7 @@
 import argparse, re, sys, os
 
-from source.muexporter import MUExporter
-from source.mue_errors import *
+from script.muexporter import MUExporter
+from script.mue_errors import *
 from definitions import TEMPLATE_RECENT, QL_DEF
 
 class MUEInterface:

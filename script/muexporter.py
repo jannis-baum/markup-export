@@ -1,8 +1,8 @@
 import shutil, os, sys
 import subprocess, yaml
 
-from source.templates.mue_template_data import MUETemplateData
-from source.mue_errors import *
+from script.templates.mue_template_data import MUETemplateData
+from script.mue_errors import *
 from definitions import ROOT_DIR, TEMPLATE_DIR, TEMPLATE_RECENT, CMD_EDITOR, CMD_QL
 
 class MUExporter:
