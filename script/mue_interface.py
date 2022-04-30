@@ -9,7 +9,7 @@ class MUEInterface:
         self.exporter = MUExporter()
 
         self.parser = argparse.ArgumentParser()
-        self.parser.add_argument('file')
+        self.parser.add_argument('sources', nargs='+', type=str, help='source file(s) and / or directory/ies')
         self.parser.add_argument('-o', '--out', dest='out', metavar='filename', type=str, help='output filename')
         self.parser.add_argument('-t', '--template', dest='template', metavar='template', type=str, help='template identifier')
         # edit becomes None if -e without name, False if not given
@@ -37,7 +37,18 @@ class MUEInterface:
         recent = options.recent; del options.recent
         interactive = options.interactive; del options.interactive
         try:
-            if not os.path.exists(options.file): raise FileNotFound
+            options.files = []; options.bibs = []
+            for source in options.sources:
+                if os.path.isdir(source):
+                    files = [os.path.join(root, file) for root, _, files in os.walk(source) for file in files]
+                elif os.path.isfile(source):
+                    files = [source]
+                else:
+                    raise FileNotFound
+                options.files += [file for file in files if file.endswith('md')]
+                options.bibs += [file for file in files if file.endswith(('bib', 'bibtex', 'json', 'yaml', 'ris'))]
+            del options.sources
+            if len(options.files) == 0: raise NoFiles
             if recent:
                 if options.template or interactive: raise ExclusiveRecent
                 options.template = TEMPLATE_RECENT

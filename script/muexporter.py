@@ -50,7 +50,9 @@ class MUExporter:
         return self.templates.list_string()
 
     def export(self, options):
-        file_out = options.out or '.'.join(options.file.split('.')[:-1]) + '.pdf'
+        file_out = options.out or\
+                '.'.join(options.files[0].split('.')[:-1]) + '.pdf' if len(options.files) == 1\
+                else 'export.pdf'
         self.sp_output = sys.stdout if options.debug else subprocess.DEVNULL
 
         config = self.__ready_template_and_get_config(options.template, options.edit)
@@ -58,7 +60,10 @@ class MUExporter:
 
         pandoc_args = ['pandoc'] + extra_flags + ['-s', '-o', file_out, MUExporter.temporary_templ_path]
         print(f'exporting {file_out} ...')
-        self.__run_sp(pandoc_args + [options.file])
+        self.__run_sp(pandoc_args
+            + [f'--bibliography={bib}' for bib in options.bibs]
+            + options.files
+        )
         print('done')
 
         if options.quicklook:
