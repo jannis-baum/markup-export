@@ -12,9 +12,12 @@ mue-config:
     - presets/raw
 
 header-includes:
-  - \usepackage{etoolbox}
-  - \patchcmd{\quote}{\rightmargin}{\leftmargin 2em \rightmargin 0}{}{}
+  - \usepackage{framed}
   - \usepackage{xcolor}
+  - \let\oldquote=\quote
+  - \let\endoldquote=\endquote
+  - \colorlet{shadecolor}{gray!10}
+  - \renewenvironment{quote}{\begin{shaded*}\begin{oldquote}}{\end{oldquote}\end{shaded*}}
   - \definecolor{linkblue}{HTML}{2D7196}
   - \usepackage{setspace}
   - \setstretch{1.1}
