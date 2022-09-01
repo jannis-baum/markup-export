@@ -51,8 +51,8 @@ class MUExporter:
 
     def export(self, options):
         file_out = options.out or\
-                '.'.join(options.files[0].split('.')[:-1]) + '.pdf' if len(options.files) == 1\
-                else 'export.pdf'
+                ('.'.join(options.files[0].split('.')[:-1]) + '.pdf' if len(options.files) == 1\
+                else 'export.pdf')
         self.sp_output = sys.stdout if options.debug else subprocess.DEVNULL
 
         config = self.__ready_template_and_get_config(options.template, options.edit)
